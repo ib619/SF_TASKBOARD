@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %} Create New Article {% endblock title %}
+
+{% block content %}
+<h3>Your Article: </h3>
+<form enctype="multipart/form-data" method="POST">
+    {% csrf_token %}
+    {{ form.media }}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock content %}

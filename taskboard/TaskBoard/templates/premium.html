@@ -1,0 +1,29 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %} Register {% endblock title %}
+
+{% block content %}
+{% if registered %}
+<h3>Thank you for registration!</h3>
+{% else %}
+<h3>Sign Up:</h3>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+<tr>
+    <td>{{ mem.Name.label_tag }}</td>
+    <td>{{ mem.Name }}</td>
+</tr>
+<tr>
+    <td>{{ mem.Email.label_tag }}</td>
+    <td>{{ mem.Email }}</td>
+</tr>
+<tr>
+    <td>{{ mem.password.label_tag }}</td>
+    <td>{{ mem.password }}</td>
+</tr>
+</table>
+    <input type="submit" value="Sign Up">
+</form>
+{% endif %}
+{% endblock content %}

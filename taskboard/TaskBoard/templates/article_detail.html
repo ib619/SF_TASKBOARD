@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %}
+
+
+{% block title %}
+Article
+{% endblock title %}
+
+
+{% block content %}
+
+    <h1>{{ article.title }}</h1>
+    <h4>Category: {{ article.get_category }}</h4>
+    <p>{{ article.text | safe }}</p><br>
+
+    {% if article.video %}
+        <video height='250' controls>
+            <source src='{{ MEDIA_URL }}{{ article.video }}' type='video/mp4'>
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+    {% if article.video2 %}
+        <video height='250' controls>
+            <source src='{{ MEDIA_URL }}{{ article.video2 }}' type='video/mp4'>
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+    <hr>
+    {% if owner %}
+        <p>You have created this article</p>
+        <p><a href="{% url 'article_update' article.id %}">Edit</a></p>
+        <p><a href="{% url 'article_delete' article.id %}">Delete</a></p>
+    {% else %}
+        <p>This article was created by: {{ article.author.username }}</p>
+        <p><a href="{% url 'respond' %}">Respond</a></p>
+    {% endif %}
+
+{% endblock content %}

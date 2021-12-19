@@ -1,0 +1,14 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %} OTP {% endblock title %}
+
+{% block content %}
+<h3>Email Confirmation:</h3>
+<h5>We have sent you an email with one time password. Please type it below.</h5>
+<form method="POST">
+    {% csrf_token %}
+    <label for="otp">Password:</label>
+    <input name="otp" type="text">
+    <input type="submit" value="Submit">
+</form>
+{% endblock content %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h4>Hello, {{ sub_name }}! These are the posts you missed last week!</h4>
+<table>
+{% for article in articles %}
+    <tr>
+        <td><p>{{ article.title }}</p></td>
+        <td><a href="{% url 'article_detail' article.id %}">Read</a></td>
+    </tr>
+{% endfor %}
+</table>
+<h6>Thank you for using TASKBOARD!</h6>
+<h6>This mail was sent using celery beat.</h6>
+</body>

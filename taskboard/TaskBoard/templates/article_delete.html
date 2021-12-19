@@ -1,0 +1,31 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Articles
+{% endblock title %}
+
+
+{% block content %}
+    <h1>Do you want to delete this article?</h1>
+    <h3>{{ article.title }}</h3>
+    <h4>Category: {{ article.get_category }}</h4>
+    <p>{{ article.text | safe }}</p><br>
+
+    {% if article.video %}
+        <video height='250' controls>
+            <source src='{{ MEDIA_URL }}{{ article.video }}' type='video/mp4'>
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+    {% if article.video2 %}
+        <video height='250' controls>
+            <source src='{{ MEDIA_URL }}{{ article.video2 }}' type='video/mp4'>
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
+    <hr>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+{% endblock content %}

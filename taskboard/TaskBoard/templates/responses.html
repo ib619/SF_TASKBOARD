@@ -1,0 +1,60 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Responses
+{% endblock title %}
+
+{% block content %}
+    <h1>Responses to my Articles</h1>
+    <hr>
+    <form method="GET">
+        {{ filter.form }}
+        <input type="submit" value="Find">
+    </form>
+    <hr>
+        <table>
+            <tr>
+                <td>Article Name</td>
+                <td>Author</td>
+                <td>Text</td>
+                <td>Decision</td>
+            </tr>
+        {% for response in object_list|dictsort:"id" reversed %}
+            {% if response.article.author == my_user %}
+            <tr>
+                <td>
+                    <p>{{ response.article.title }}</p>
+                </td>
+                <td>{{ response.author.username }}</td>
+                <td>{{ response.text | truncatewords:20 }}</td>
+                <td>
+                    {% if response.decision == 'undecided' %}
+                    <a href="{% url 'decide' response.id %}">Принять/Удалить</a>
+                    {% else %}
+                    <p>{{ response.get_decision }}</p>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a href="?page=1">First</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a>{{ num }}</a>
+                {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+
+        {% endif %}
+{% endblock content %}
